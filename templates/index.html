@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plant Disease Detector 🌿</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🌱 Plant Disease Detector</div>
+  </nav>
+
+  <div class="card">
+    <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+      <input type="file" name="image" accept="image/*" required><br>
+      <button type="submit">Detect Disease</button>
+    </form>
+
+    <div id="loader" style="display:none;">🔄 Analyzing... Please wait</div>
+
+    {% if prediction %}
+    <div class="result animate">
+      <h2>Prediction:</h2>
+      <p>{{ prediction }}</p>
+      <h2>Remedy:</h2>
+      <p>{{ remedy }}</p>
+      <img src="{{ url_for('static', filename=image_path) }}" alt="Uploaded Leaf">
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function showLoader() {
+      document.getElementById("loader").style.display = "block";
+    }
+  </script>
+</body>
+</html>
